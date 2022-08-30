@@ -19,7 +19,7 @@ do
 	rm $path/mdswap.txt
 	server=$line
 	#Put in vars name, IP and gateway from servers_list file
-	place=`echo $server | cut -d":" -f1`
+	name=`echo $server | cut -d":" -f1`
 	ip=`echo $server | cut -d":" -f2`
 	gateway=`echo $server | cut -d":" -f3`
 	
@@ -34,7 +34,7 @@ do
 		#SSH failed
 		#Populate output file
 			echo `date` >> $output 2>&1
-			echo -e "\n$place @ $ip" >> $output 2>&1
+			echo -e "\n$name @ $ip" >> $output 2>&1
 			echo -e "\nRAID system state is unknown! Server has been contacted, but SSH failed." >> $output 2>&1
 			echo -e "\n***************************************************************\n" >> $output 2>&1
 			exit 1
@@ -45,7 +45,7 @@ do
 		#If different from no "_", there's a problem
 			#Populate output file
 			echo `date` >> $output 2>&1
-			echo -e "\n$place @ $ip" >> $output 2>&1
+			echo -e "\n$name @ $ip" >> $output 2>&1
 			echo -e "\nFound a problem of the RAID system!:\n" >> $output 2>&1
 			cat $path/mdswap.txt >> $output
 			echo -e "\n***************************************************************\n" >> $output 2>&1
@@ -59,14 +59,14 @@ do
 			#If different from no "U", all if fine
 				#Populate output file
 				echo `date` >> $output 2>&1
-				echo -e "\n$place @ $ip" >> $output 2>&1
+				echo -e "\n$name @ $ip" >> $output 2>&1
 				echo -e "\nRAID system is ok." >> $output 2>&1
 				echo -e "\n***************************************************************\n" >> $output 2>&1
 			else
 			#Any other case
 				#Populate output file
 				echo `date` >> $output 2>&1
-				echo -e "\n$place @ $ip" >> $output 2>&1
+				echo -e "\n$name @ $ip" >> $output 2>&1
 				echo -e "\nRAID system state is unknown!:\n" >> $output 2>&1
 				cat $path/mdswap.txt >> $output
 				echo -e "\n***************************************************************\n" >> $output 2>&1
@@ -83,7 +83,7 @@ do
 				#Gateway ok
 				#Populate output file
 				echo `date` >> $output 2>&1
-				echo -e "\n$place @ $ip" >> $output 2>&1
+				echo -e "\n$name @ $ip" >> $output 2>&1
 				echo -e "\nImpossible to establish connection with the server! However the gateway is responding ($gateway)." >> $output 2>&1
 				echo -e "\n***************************************************************\n" >> $output 2>&1
 			else
@@ -91,7 +91,7 @@ do
 				#Gateway is not ok
 				#Populate output file
 				echo `date` >> $output 2>&1
-				echo -e "\n$place @ $ip" >> $output 2>&1
+				echo -e "\n$name @ $ip" >> $output 2>&1
 				echo -e "\nImpossible to establish connection with the gateway ($gateway) !" >> $output 2>&1
 				echo -e "\n***************************************************************\n" >> $output 2>&1
 				}
